@@ -14,7 +14,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
@@ -56,16 +55,16 @@ class ProductCrudController extends AbstractCrudController
         return [
             NumberField::new('id')->hideOnForm(),
             TextField::new('nom'),
-            TextField::new('subTitle'),
+            TextField::new('sousTitre'),
             SlugField::new('slug')->setTargetFieldName('nom'),
-            MoneyField::new('price')->setCurrency('EUR'),
+            MoneyField::new('prix')->setCurrency('EUR'),
             TextField::new('imageFile')->setFormType(VichImageType::class)->onlyOnForms(),
             ImageField::new('image')->setBasePath('/uploads/images/products')->onlyOnIndex(),
             DateField::new('createdAt')->setFormat('dd.MMMM.yyyy')->hideOnForm(),
             AssociationField::new('category'),
             BooleanField::new('online')->renderAsSwitch(),
             DateField::new('updatedAt')->setFormat('dd.MMMM.yyyy')->hideOnForm(),
-            TextEditorField::new('description')
+//            TextEditorField::new('description')
         ];
     }
 }
