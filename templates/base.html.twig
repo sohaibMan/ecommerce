@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link
+		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+	<body class="bg-light">
+
+		<header class="p-3 bg-info text-white">
+			<div class="px-3">
+				<div class="d-flex flex-wrap align-items-center justify-content-between justify-content-lg-between">
+					<p class="h3">
+						<a href="{{path('product_home')}}" class="text-white nav-link mx-3">
+							E-COMMERCE
+						</a>
+					</p>
+
+					{# <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+																																																																																																																																																																																																																																																																																																																	<li>
+																																																																																																																																																																																																																																																																																																																	<a href="#" class="nav-link px-2 text-secondary">Home</a>
+																																																																																																																																																																																																																																																																																																																	</li>
+																																																																																																																																																																																																																																																																																																												</ul> #}
+					{# 
+																																																																																																																																																																																																																																																																																																												<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+																																																																																																																																																																																																																																																																																																							<input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+																																																																																																																																																																																																																																																																																																								</form> #}
+
+
+					{% if app.user %}
+
+						<div class="dropdown text-end">
+
+							<a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+								Bienvenue,
+								{{ app.user.nom |upper }}
+								<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle ms-2">
+							</a>
+
+							<ul class="dropdown-menu text-small bg-light " aria-labelledby="dropdownUser1">
+								<li>
+									<a class="dropdown-item text-info" href="#">Mon Profile</a>
+								</li>
+
+								<li>
+									<a class="dropdown-item text-info" href="#">Historique des commandes</a>
+								</li>
+								<li>
+									<a class="dropdown-item text-info" href="#">
+										Modifier le Mot de passe</a>
+								</li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li>
+									<a class="dropdown-item text-info" href="{{ path('app_logout') }}">Deconnecter</a>
+								</li>
+							</ul>
+						</div>
+					{% else %}
+						<div class="text-end">
+							<a href="{{path('app_login')}}" class="mx-3 btn btn-outline-light me-2">
+								Se conncecter
+							</a>
+							<a href="{{path('app_register')}}" class="btn btn-outline-light">
+								S'inscrire
+							</a>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</header>
+
+
+		<div class="text-center container">
+			{% include '_partials/_flash.html.twig' %}
+		</div>
+		{% block body %}{% endblock %}
+	</body>
+</html>

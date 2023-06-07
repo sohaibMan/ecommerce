@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Panier!
+{% endblock %}
+
+{% block body %}
+
+	{# {{dump(cart)}} #}
+	{% if cart|length>0 %}
+		<section class="h-100 mt-5">
+			<div class="container bg-light h-100 shadow-lg">
+				<div class="row  p-5  d-flex justify-content-center align-items-center h-100">
+					<div class="col-10">
+
+						<div class=" mt-4 mb-4">
+							<h3 class="fw-bold mb-0 text-info text-end">Mon Panier</h3>
+						</div>
+
+
+						<p class="h6 mb-0 mt-3 text-end">Souhaitez-vous ajouter d'autre produits? &nbsp
+							<a href="{{path('product_home')}}" class="btn btn-sm btn-outline-info">
+								Voir les listes
+							</a>
+						</p>
+
+						{# {% set itemtotalPrix = null %} #}
+
+						{% set grandTotal = null %}
+						{% set quantityTotal = null %}
+						{% for item in cart %}
+							{% set itemtotalPrix = item.product.prix * item.quantity %}
+							{% set grandTotal = grandTotal + itemtotalPrix %}
+							{% set quantityTotal = quantityTotal + item.quantity %}
+
+							<div class=" rounded-3">
+								<div class="card-body p-4">
+									<div class="row d-flex justify-content-between align-items-center">
+										<div class="col-md-2 col-lg-2 col-xl-2">
+											<img src="{{asset('uploads/images/products/'~ item.product.image ~'')}}" class="img-fluid rounded-3" alt="Cotton T-shirt">
+										</div>
+										<div class="col-md-3 col-lg-3 col-xl-3">
+											<p class="lead fw-normal mb-2">{{item.product.nom}}</p>
+											<p></p>
+										</span>
+
+										<span class="text-muted">Prix Unitaire:
+											{{item.product.prix}}
+										</span>
+									</p>
+								</div>
+
+								<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+									<a href="{{path('cart_decrease', {'id': item.product.id})}}" class="btn btn-link px-2">
+										<i class="bi bi-dash-square-fill text-secondary" style="font-size: 1.2rem;"></i>
+									</a>
+
+									<input value="{{item.quantity}}" type="number" class="form-control"/>
+
+									<a href="{{path('cart_increase', {'id': item.product.id})}}" class="btn btn-link px-2">
+										<i class="bi bi-plus-square-fill text-secondary" style="font-size: 1.2rem;"></i>
+									</a>
+								</div>
+								<div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1 ">
+									<h5 class="mb-0">
+										{{(itemtotalPrix)|number_format(2, ',', ',')}}
+										€
+									</h5>
+								</div>
+								<div class="col-md-1 col-lg-1 col-xl-1 text-end">
+									<a href="{{path('remove_item', {id:item.product.id})}}" onclick="return confirm('Êtes-vous sûr de supprimer ce produit ?')" class="text-secondary">
+										<i class="bi bi-trash3" style="font-size: 1.5rem; color: gray;"></i>
+									</a>
+								</div>
+								<hr class="mt-3">
+							</div>
+						</div>
+					</div>
+
+				{% endfor %}
+
+				<div class=" mb-3">
+					<div class="d-flex justify-content-between mx-3 mb-3">
+						<p class="text-secondary">
+							Produits Totale: &nbsp
+							<span class="fw-bold">{{cart|length}}
+							</span>
+						</p>
+						<p class="text-secondary">
+							Quantité totale: &nbsp
+							<span class="fw-bold">{{quantityTotal}}
+							</span>
+						</p>
+						<p class="bg-warning px-3 py-1">
+							PRIX TOTALE :
+							<span class="fw-bold h4">
+								{{grandTotal|number_format(2, ',', ',')}}€</span>
+						</p>
+					</div>
+
+					<div class=" mt-4 mb-4 d-flex justify-content-between ms-3">
+						<p class="h6 mb-0 mt-3 text-end">
+							<a href="{{path('panier_vide')}}" onclick="return confirm('Êtes-vous sûr de supprimer votre panier ?')" class="text-danger">
+								<i class="bi bi-trash3" style="font-size: .8rem;"></i>
+								&nbsp Supprimer le panier?
+							</a>
+						</p>
+
+
+						<div class="text-end col-6">
+							<a type="button" class="btn btn-info w-100">Valider mon panier</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>{% else %}
+
+<div class="text-center mt-5">
+	<div>
+		<i class="bi bi-binoculars-fill " style="font-size: 1.3rem;"></i>
+	</div>
+	<br><br><br>
+	<div>
+		<i class="bi bi-cart-dash text-info" style="font-size: 4rem; "></i>
+	</div>
+
+	<h2 class="text-center text-danger mt-4">
+		VOTRE PANIER EST VIDE</h2>
+
+	<P>
+		Commence votre shopping dès maintenant à travers nos articles
+	</P>
+	<div class="card-body text-center mb-3">
+		<a href="{{path('product_home')}}" type="button" class="btn btn-info">VOIR LES PRODUITS</a>
+	</div>
+</div>
+
+
+{% endif%}{% endblock %}

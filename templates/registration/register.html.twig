@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register
+{% endblock %}
+
+{% block body %}
+	<div class="col-lg-7 col-xl-6 col-xxl-4 col-sm-10 col-md-8 col-12  mx-auto mt-5 p-5">
+
+		<h2 class="text-center text-info">S'inscrire</h2>
+
+		{{ form_start(registrationForm) }}
+		{{ form_row(registrationForm.nom) }}
+		{{ form_row(registrationForm.email) }}
+		{{ form_row(registrationForm.plainPassword, {
+            label: 'Mot de Passe'
+        }) }}
+		{{ form_row(registrationForm.agreeTerms) }}
+
+		<button type="submit" class="btn btn-info w-100 text-white">Enregistrer</button>
+		{{ form_end(registrationForm) }}
+
+		<p class="h6 mb-0 mt-3 text-center">
+			Vous avez déjà un compte? &nbsp
+			<a href="{{path('app_login')}}" class="text-info">
+				Connecter-vous
+			</a>
+		</p>
+	</div>
+{% endblock %}

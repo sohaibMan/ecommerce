@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product index
+{% endblock %}
+
+{% block body %}
+
+	<div class="container text-center">
+		<h3>
+			All Products
+		</h3>
+
+		<div class="d-flex flex-wrap">
+
+			{% for product in products %}
+				<div class="col g-1 mb-3">
+					<div class="card shadow-sm" style="width: 18rem;">
+						<div class"text-center">
+							<img src="{{ product.image }}" class="mt-3" width="150px" height="auto" alt="Product Photo">
+						</div>
+						<div class="card-body">
+							<h5 class="card-title fw-bolder">{{ product.nom }}</h5>
+							<p class="card-text fw-bolder text-danger">{{ product.Prix }}</p>
+							<a href="{{path('app_product_show', {'id': product.id} )}}" class="btn btn-sm btn-outline-danger">Découvrez</a>
+							<a href="#" class="btn btn-sm btn-outline-info">Ajouter au Panier</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
