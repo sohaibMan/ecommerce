@@ -1,7 +1,8 @@
 {
-  "assets/app.css": "/assets/app.2224f9cf.css",
-  "assets/app.js": "/assets/app.4fe7be59.js",
-  "assets/runtime.js": "/assets/runtime.62bcf186.js",
+  "assets/app.css": "/assets/app.css",
+  "assets/app.js": "/assets/app.js",
+  "assets/runtime.js": "/assets/runtime.js",
+  "assets/vendors-node_modules_bootstrap_dist_js_bootstrap_esm_js.js": "/assets/vendors-node_modules_bootstrap_dist_js_bootstrap_esm_js.js",
   "assets/fonts/bootstrap-icons.woff?": "/assets/fonts/bootstrap-icons.6959d0d9.woff",
   "assets/fonts/bootstrap-icons.woff2?": "/assets/fonts/bootstrap-icons.b2e5aab6.woff2"
 }
