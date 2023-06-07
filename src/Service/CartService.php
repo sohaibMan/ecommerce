@@ -9,8 +9,9 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartService
 {
-    private $requestStack;
+    private RequestStack $requestStack;
     private EntityManagerInterface $em;
+
     public function __construct(RequestStack $requestStack, EntityManagerInterface $em)
     {
         $this->requestStack = $requestStack;
@@ -28,6 +29,11 @@ class CartService
         $this->getSession()->set('cart', $card);
     }
 
+    private function getSession(): SessionInterface
+    {
+        return $this->requestStack->getSession();
+    }
+
     public function decreaseQuantityFromCart(int $id): void
     {
         $card = $this->requestStack->getSession()->get('cart', []);
@@ -35,15 +41,12 @@ class CartService
             $card[$id]--;
         } else {
             $card[$id] = 0;
-            // unset($cart[$id]);
         }
 
         $this->getSession()->set('cart', $card);
     }
 
-
-
-    public  function removeCart()
+    public function removeCart()
     {
         return $this->getSession()->remove('cart');
     }
@@ -57,7 +60,7 @@ class CartService
             foreach ($cart as $id => $quantity) {
                 $product = $this->em->getRepository(Product::class)->findOneBY(['id' => $id]);
                 if (!$product) {
-                    echo "fsdqf";
+                    echo "produit n'existe pas";
                 }
                 $cartData[] = [
                     'product' => $product,
@@ -66,11 +69,6 @@ class CartService
             }
         }
         return $cartData;
-    }
-
-    private function getSession(): SessionInterface
-    {
-        return $this->requestStack->getSession();
     }
 
     public function removeFromCart(int $id)
